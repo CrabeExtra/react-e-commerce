@@ -1,3 +1,11 @@
+html {
+  background-color:#282c34;
+}
+
+h1, h2, h3, p {
+  color:bisque !important;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +18,58 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  position: fixed;
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+
+#search button {
+  margin-left: 10px;
+}
+
+#postlist {
+  display: block;
+  align-items: center;
+}
+
+#postlist button{
+  justify-self: center;
+}
+
+li {
+  background-color: darkslategrey;
+}
+
+ul {
+  list-style-type: none;
+  padding-right: 5%;
+  padding-left: 5%;
+}
+
+li img, li video {
+  width: 80%;
+  max-width: 500px;
 }
