@@ -1,4 +1,4 @@
-const { Pool } = require('pg');
+const { Pool } = require('pg').Pool;
 const { DB } = require('../config');
 
 const pool = new Pool({
@@ -16,6 +16,14 @@ const getUsers = (request, response) => {
     }
     //response.status(200).json(results.rows)
   })
+}
+
+const getItems = (request, response) => {
+  try{
+    return pool.query('SELECT * FROM items ORDER BY id ASC')
+  } catch(e) {
+    throw e;
+  }
 }
 
 const checkEmailPasswordCombo = async (request, response) => {
@@ -114,6 +122,7 @@ const createCartItem = (request, response) => {
 
 module.exports = {
   getUsers,
+  getItems,
   getUserById,
   createUser,
   updateUser,

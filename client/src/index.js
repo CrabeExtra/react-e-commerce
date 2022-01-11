@@ -19,18 +19,21 @@ import Product from './routes/Product';
 import Checkout from './routes/Checkout';
 import Cart from './routes/Cart';
 
+const state = store.getState();
+const dispatch = store.dispatch;
 const render = () => (
+  
   ReactDOM.render(
     <React.StrictMode>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={
             <App 
-              state={store.getState()}
-              dispatch={store.dispatch}
+              state={state}
+              dispatch={dispatch}
             />}>
               <Route path="orderhistory" element={<OrderHistory />} />
-              <Route path="productslist" element={<ProductsList />} >
+              <Route path="productslist" element={<ProductsList productsList={state.productsList} dispatch={dispatch} />} >
                 <Route  path=":productId" element={<Product />}/>
               </Route>
           </Route>

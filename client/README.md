@@ -1,9 +1,3 @@
-# Description
-This is a react-redux app created for learning purposes that interacts with a postgres database and allows for user interaction through the browser. \
-The database items have very few columns, just enough to communicate functionality.\
-The app is routed using the react router dom. and the file structure separates the database handler, features/components (reducers and actions) and routes into their own folders. \
-No tests are written as the project is small enough in scale that automated testing is not necessary.
-
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

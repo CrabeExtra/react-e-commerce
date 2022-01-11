@@ -26,8 +26,10 @@ const App = (props) => {
       >
         <Link style={{color: 'lightblue'}} to="/login"><strong>Login</strong></Link> |{" "}
         <Link style={{color: 'lightblue'}} to="/register"><strong>Register</strong></Link> |{" "}
-        <Link style={{color: 'lightblue'}} to="/Cart"><strong>Cart</strong></Link>
+        <Link style={{color: 'lightblue'}} to="/cart"><strong>Cart</strong></Link> |{" "}
+        <Link id="productsListLink" style={{color: 'lightblue'}} to="/productslist"><strong>Load Products</strong></Link>
       </nav>
+      
       <Outlet />
     </div>
   );

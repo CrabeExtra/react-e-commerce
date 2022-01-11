@@ -13,17 +13,17 @@ export const loadMore = (data) => {
     };
 }
 
-const initialPostList = [];
-export const postListReducer = (postList = initialPostList, action) => {
+const initialProductsList = [];
+export const productsListReducer = (productsList = initialProductsList, action) => {
     switch(action.type) {
         case 'productsList/loadData': {
             return action.payload;
         }
         case 'productsList/loadMore': {
-            return [...postList, action.payload];
+            return [...productsList, action.payload];
         }
         default: {
-            return postList;
+            return productsList;
         }
     }
 }
