@@ -1,5 +1,6 @@
-const { Pool } = require('pg').Pool;
+const { Pool } = require('pg');
 const { DB } = require('../config');
+var sha256 = require('js-sha256');
 
 const pool = new Pool({
   user: DB.PGUSER,
@@ -9,18 +10,31 @@ const pool = new Pool({
   port: DB.PGPORT
 });
 
-const getUsers = (request, response) => {
-  pool.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
-    if (error) {
-      throw error
-    }
-    //response.status(200).json(results.rows)
-  })
+const getUsers = async (request, response) => {
+  let results = [];
+  try {
+    results = await pool.query('SELECT * FROM users ORDER BY id ASC');
+    return results.rows;
+  } catch(e) {
+    throw e;
+  }
 }
 
-const getItems = (request, response) => {
+const getItems = async (request, response) => {
+  let result = [];
   try{
-    return pool.query('SELECT * FROM items ORDER BY id ASC')
+    result = await pool.query('SELECT * FROM items ORDER BY id ASC');
+    return result.rows;
+  } catch(e) {
+    throw e;
+  }
+}
+
+const getCart = async (request, response) => {
+  let result = [];
+  try{
+    result = await pool.query('SELECT * FROM cart ORDER BY id ASC');
+    return result.rows;
   } catch(e) {
     throw e;
   }
@@ -28,9 +42,11 @@ const getItems = (request, response) => {
 
 const checkEmailPasswordCombo = async (request, response) => {
   const { email, password } = request.body;
+
+  let h = sha256(password);
   let result = [];
   try {
-    result = await pool.query('SELECT * FROM users WHERE email = $1 AND password = $2', [email, password]);
+    result = await pool.query('SELECT * FROM users WHERE email = $1 AND password = $2', [email, h]);
   } catch (e) {
     throw e;
   }
@@ -51,8 +67,10 @@ const getUserById = (request, response) => {
 
 const createUser = (request, response) => {
   const { id, email, password } = request.body
+  // serverside hashing
+  let h = sha256(password);
 
-  pool.query('INSERT INTO users (id, email, password) VALUES ($1, $2, $3)', [id, email, password], (error, results) => {
+  pool.query('INSERT INTO users (id, email, password) VALUES ($1, $2, $3)', [id, email, h], (error, results) => {
     if (error) {
       throw error
     }
@@ -64,9 +82,11 @@ const updateUser = (request, response) => {
   const id = parseInt(request.params.id)
   const { email, password } = request.body
 
+  let h = sha256(password);
+
   pool.query(
     'UPDATE users SET email = $1, password = $2 WHERE id = $3',
-    [email, password, id],
+    [email, h, id],
     (error, results) => {
       if (error) {
         throw error
@@ -123,6 +143,7 @@ const createCartItem = (request, response) => {
 module.exports = {
   getUsers,
   getItems,
+  getCart,
   getUserById,
   createUser,
   updateUser,

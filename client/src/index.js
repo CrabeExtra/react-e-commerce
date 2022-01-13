@@ -10,7 +10,6 @@ import {
   Route,
   Link
 } from 'react-router-dom';
-
 import Login from './routes/Login';
 import Register from './routes/Register';
 import OrderHistory from './routes/OrderHistory';
@@ -19,39 +18,40 @@ import Product from './routes/Product';
 import Checkout from './routes/Checkout';
 import Cart from './routes/Cart';
 
-const state = store.getState();
-const dispatch = store.dispatch;
 const render = () => (
   
   ReactDOM.render(
     <React.StrictMode>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={
-            <App 
-              state={state}
-              dispatch={dispatch}
-            />}>
-              <Route path="orderhistory" element={<OrderHistory />} />
-              <Route path="productslist" element={<ProductsList productsList={state.productsList} dispatch={dispatch} />} >
-                <Route  path=":productId" element={<Product />}/>
-              </Route>
-          </Route>
-          <Route path="checkout" element={<Checkout />} />
-          <Route path="cart" element={<Cart />} />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-          <Route
-              path="*"
-              element={
-                <main style={{ padding: "1rem", fontSize: "50px", textAlign: 'center' }}>
-                  <p>This domain is not routed!!!</p>
-                  <Link style={{color: 'lightblue'}} to="/"><strong>Back to main</strong></Link>
-                </main>
-              }
-          />
-        </Routes>
-      </BrowserRouter>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={
+              <App 
+                state={store.getState()}
+                dispatch={store.dispatch}
+              />}>
+              
+                <Route path="orderhistory" element={<OrderHistory />} />
+                <Route path="productslist" element={<ProductsList store={store} productsList={store.getState().productsList} dispatch={store.dispatch} />} >
+                  <Route  path=":productId" element={<Product />}/>
+                </Route>
+            </Route>
+            <Route path="checkout" element={<Checkout />} />
+            <Route path="cart" element={<Cart />} />
+            
+            <Route path="login" element={<Login store={store} login={store.getState().login} dispatch={store.dispatch} />} />
+          
+            <Route path="register" element={<Register />} />
+            <Route
+                path="*"
+                element={
+                  <main style={{ padding: "1rem", fontSize: "50px", textAlign: 'center' }}>
+                    <p>This domain is not routed!!!</p>
+                    <Link style={{color: 'lightblue'}} to="/"><strong>Back to main</strong></Link>
+                  </main>
+                }
+            />
+          </Routes>
+        </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root')
   )

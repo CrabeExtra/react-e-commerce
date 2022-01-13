@@ -1,7 +1,5 @@
-export default function Register() {
-    return (
-      <main style={{ padding: "1rem 0" }}>
-        <h2>Register</h2>
-      </main>
-    );
-  }
+import register from '../features/Register/Register';
+
+export default function Register(props) {
+  return (register(props));
+}

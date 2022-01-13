@@ -1,7 +1,5 @@
-export default function Login() {
-    return (
-      <main style={{ padding: "1rem 0" }}>
-        <h2>Login</h2>
-      </main>
-    );
-  }
+import login from './../features/Login/Login';
+
+export default function Login(props) {
+  return (login(props));
+}
