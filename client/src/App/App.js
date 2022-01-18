@@ -10,7 +10,6 @@ import { setLogin } from '../features/Login/loginSlice';
 /**
  * 
  * displays main page of the app as the sum of its features.
- * TODO replace searchbar and postlist with actual features
  */
 const App = (props) => {
   const { state, dispatch } = props;
@@ -29,12 +28,13 @@ const App = (props) => {
           color: 'lightblue'
         }}
       >
-        <Link style={{color: 'lightblue'}} to="/login"><strong>Login</strong></Link> |{" "}
-        {state.login.loggedIn ? <p></p> : <Link style={{color: 'lightblue'}} to="/register"><strong>Register</strong></Link> |" "}
-        <Link style={{color: 'lightblue'}} to="/cart"><strong>Cart</strong></Link> |{" "}
-        <Link id="productsListLink" style={{color: 'lightblue'}} to="/productslist"><strong>Load Products</strong></Link>
-        {state.login.loggedIn ? <div><h2>Logged in: {state.login.email}</h2> <a onClick={logout}>Click here to Logout</a></div> : <h2></h2>}
         
+        <Link id="productsListLink" style={{color: 'lightblue'}} to="/productslist"><strong>Load Products</strong></Link> {state.login.loggedIn ? '|' : ''}{" "}
+        {state.login.loggedIn ? <Link style={{color: 'lightblue'}} to="/checkout"><strong>Checkout</strong></Link> : <p></p>} {state.login.loggedIn ? '|' : ''}{" "}
+        {state.login.loggedIn ? <Link style={{color: 'lightblue'}} to="/orderhistory"><strong>Order History</strong></Link> : <p></p>} 
+        {state.login.loggedIn ? <p></p> : <Link style={{color: 'lightblue'}} to="/login"><strong>Login</strong></Link>} {state.login.loggedIn ? '' : '|'}{" "}
+        {state.login.loggedIn ? <p></p> : <Link style={{color: 'lightblue'}} to="/register"><strong>Register</strong></Link>}
+        {state.login.loggedIn ? <div><h2>Logged in: {state.login.email}</h2> <h2 onClick={logout}>Click here to Logout</h2></div> : <p></p>}
       </nav>
       <Outlet />
     </div>

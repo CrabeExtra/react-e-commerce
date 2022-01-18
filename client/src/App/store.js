@@ -1,7 +1,10 @@
 import { createStore, combineReducers } from 'redux';
 import { sessionReducer, sessionService } from 'redux-react-session';
 import { productsListReducer } from '../features/ProductsList/productsListSlice';
+import { productReducer } from '../features/Product/productSlice';
 import { loginReducer } from '../features/Login/loginSlice';
+import { cartReducer } from '../features/Cart/cartSlice';
+
 // import other features
 /**
  * generates the state store of the app to be used throughout persistently
@@ -9,13 +12,14 @@ import { loginReducer } from '../features/Login/loginSlice';
 const reducers = {
     productsList: productsListReducer,
     login: loginReducer,
+    productId: productReducer,
+    cart: cartReducer,
     session: sessionReducer
     //other reducers
 }
 
 
 const store = createStore(combineReducers(reducers));
-console.log(store.getState());
 sessionService.initSessionService(store);
 
 export default store;

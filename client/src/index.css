@@ -3,7 +3,7 @@ html {
 }
 
 h1, h2, h3, p {
-  color:bisque !important;
+  color:lightblue !important;
 }
 
 body {
@@ -45,31 +45,6 @@ code {
   color: #61dafb;
 }
 
-
-#search button {
-  margin-left: 10px;
-}
-
-#postlist {
-  display: block;
-  align-items: center;
-}
-
-#postlist button{
-  justify-self: center;
-}
-
 li {
   background-color: darkslategrey;
-}
-
-ul {
-  list-style-type: none;
-  padding-right: 5%;
-  padding-left: 5%;
-}
-
-li img, li video {
-  width: 80%;
-  max-width: 500px;
 }

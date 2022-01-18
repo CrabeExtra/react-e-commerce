@@ -16,7 +16,6 @@ import OrderHistory from './routes/OrderHistory';
 import ProductsList from './routes/ProductsList';
 import Product from './routes/Product';
 import Checkout from './routes/Checkout';
-import Cart from './routes/Cart';
 
 const render = () => (
   
@@ -29,19 +28,15 @@ const render = () => (
                 state={store.getState()}
                 dispatch={store.dispatch}
               />}>
-              
-                <Route path="orderhistory" element={<OrderHistory />} />
-                <Route path="productslist" element={<ProductsList store={store} productsList={store.getState().productsList} dispatch={store.dispatch} />} >
-                  <Route  path=":productId" element={<Product />}/>
-                </Route>
+                <Route path="orderhistory" element={<OrderHistory login={store.getState().login} productsList={store.getState().productsList} dispatch={store.dispatch} />} />
+                <Route path="productslist" element={<ProductsList login={store.getState().login} productsList={store.getState().productsList} dispatch={store.dispatch} />} />
+                <Route path="product/:productId" element={<Product productFlip={store.getState().productId} login={store.getState().login} productsList={store.getState().productsList} dispatch={store.dispatch} />}/>
             </Route>
-            <Route path="checkout" element={<Checkout />} />
-            <Route path="cart" element={<Cart />} />
-            
-            <Route path="login" element={<Login store={store} login={store.getState().login} dispatch={store.dispatch} />} />
-          
-            <Route path="register" element={<Register />} />
-            <Route
+            <Route path="login" element={<Login login={store.getState().login} productsList={store.getState().productsList} dispatch={store.dispatch} />} />
+            <Route path="register" element={<Register login={store.getState().login} productsList={store.getState().productsList} dispatch={store.dispatch} />} />
+            <Route path="checkout" element={<Checkout productFlip={store.getState().productId} login={store.getState().login} productsList={store.getState().productsList} dispatch={store.dispatch} cart={store.getState().cart} />} />
+                
+                <Route
                 path="*"
                 element={
                   <main style={{ padding: "1rem", fontSize: "50px", textAlign: 'center' }}>
@@ -49,7 +44,7 @@ const render = () => (
                     <Link style={{color: 'lightblue'}} to="/"><strong>Back to main</strong></Link>
                   </main>
                 }
-            />
+                />
           </Routes>
         </BrowserRouter>
     </React.StrictMode>,

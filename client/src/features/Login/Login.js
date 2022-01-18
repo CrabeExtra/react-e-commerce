@@ -67,7 +67,7 @@ const Login = (props) => {
                     <input onChange={e => setPassword(e.target.value)} type="password" className="form-control" id="password" name="password" />
                 </div>
 
-                <button style={{margin:"20px", padding: "5px"}} type="btnSubmit" className="btn btn-primary">Submit</button>
+                {login.loggedIn ? <p></p> : <button style={{margin:"20px", padding: "5px"}} type="btnSubmit" className="btn btn-primary">Submit</button>}
             </form>
 
             {login.loggedIn ? <p></p> : <div><Link style={{color: 'lightblue'}} to="/register"><strong>Don't have an account? register here</strong></Link></div>}

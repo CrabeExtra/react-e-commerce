@@ -52,26 +52,36 @@ app.post('/item', (req, res) => {
   res.send('item added to the database');
 });
 
-app.post('/cart', (req, res) => {
+app.post('/cart', async (req, res) => {
   const toAdd = req.body;
   
   // output to console for debugging
   console.log(toAdd);
   carts.push(toAdd);
-  db.createCartItem(req, res);
-  res.send('item added to cart');
+  if(toAdd.add === 'add') {
+    db.createCartItem(req, res);
+  } else if(toAdd.add === 'remove') {
+    db.deleteCartItem(req, res);
+  } else if (toAdd.add === 'checkout') {
+    db.deleteCart(req, res);
+    
+    db.createOrder(req, res);
+  } else if(toAdd.add === 'getCart') {
+    if(req.body.user_email) {
+      let data = await db.getCart(req, res);
+      res.json(data);
+    }
+  }
 });
 
 app.post('/logged', async (req, res) => {
   let { email, password } = req.body;
   let result = await db.checkEmailPasswordCombo(req, res);
-  console.log(req.body);
   if(result.length !== 0) {
       res.json({success:true, email:email});
   }else {
       res.json({success:false, email:email});
   }
-  
 });
 
 //getters for db data and login data:
@@ -88,7 +98,8 @@ app.get('/users', async (req, res) => {
 
 app.get('/carts', async (req, res) => {
   let cartData = await db.getCart(req, res);
-  res.json(cartData.concat(carts));
+  console.log(cartData);
+  res.json(cartData.concat(items));
 });
 
 

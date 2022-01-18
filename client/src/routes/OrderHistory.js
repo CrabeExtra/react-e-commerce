@@ -1,7 +1,7 @@
-export default function OrderHistory() {
-    return (
-      <main style={{ padding: "1rem 0" }}>
-        <h2>OrderHistory</h2>
-      </main>
-    );
+import orderHistory from './../features/OrderHistory/OrderHistory';
+
+export default function OrderHistory(props) {
+    return (orderHistory(props));
   }
+  
+ 

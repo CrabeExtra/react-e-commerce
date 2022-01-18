@@ -1,7 +1,7 @@
-export default function Product() {
-    return (
-      <main style={{ padding: "1rem 0" }}>
-        <h2>Product</h2>
-      </main>
-    );
+import product from './../features/Product/Product';
+
+export default function Product(props) {
+    return (product(props));
   }
+  
+ 
