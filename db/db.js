@@ -23,6 +23,30 @@ const getUsers = async (request, response) => {
   }
 }
 
+const getOrders = async (request, response) => {
+  const { email } = request.body; 
+  let result = [];
+  try{
+    result = await pool.query('SELECT * FROM order_history WHERE user_email=$1 ORDER BY id ASC',[email]);
+    return result.rows;
+  } catch(e) {
+    throw e;
+  }
+}
+
+const createUser = (request, response) => {
+  const { email, password } = request.body
+  // serverside hashing
+  let h = sha256(password);
+
+  return pool.query('INSERT INTO users (email, password) VALUES ($1, $2)', [email, h], (error, results) => {
+    if (error) {
+      throw error
+    }
+    //response.status(201).send(`User added with ID: ${results.insertId}`)
+  })
+}
+
 const createOrder = async (request, response) => {
   const { user_email, item_id } = request.body;
 // add to order details to database in database
@@ -116,19 +140,6 @@ const getUserById = (request, response) => {
   })
 }
 
-const createUser = (request, response) => {
-  const { id, email, password } = request.body
-  // serverside hashing
-  let h = sha256(password);
-
-  pool.query('INSERT INTO users (id, email, password) VALUES ($1, $2, $3)', [id, email, h], (error, results) => {
-    if (error) {
-      throw error
-    }
-    //response.status(201).send(`User added with ID: ${results.insertId}`)
-  })
-}
-
 const updateUser = (request, response) => {
   const id = parseInt(request.params.id)
   const { email, password } = request.body
@@ -211,5 +222,6 @@ module.exports = {
   checkEmailPasswordCombo,
   deleteCartItem,
   deleteCart,
-  createOrder
+  createOrder,
+  getOrders
 }

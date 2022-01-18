@@ -3,9 +3,10 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import placeHolder from './../ProductsList/placeholder.png';
 import cartRet from './../Cart/cartRet';
 
+// I realise this is an absolute mess due to flawed flow I think this isn't functioning correctly
+
 const Checkout = (props) => {
     const { login, cart, dispatch } = props;
-    const [updCart, setUpdtCart] = useState(false);
     const [navi, setNavi] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
@@ -15,24 +16,26 @@ const Checkout = (props) => {
         if(!login.loggedIn) {
             navigate('/login');
         }
-        setUpdtCart(!updCart);
-        setUpdtCart(!updCart);
-        setUpdtCart(!updCart);
     }, [login.loggedIn])
 
     useEffect(()=> {
         if(navi === true) {
             onClickHandler();
             setNavi(false);
-            navigate('/orderhistory');
+            //navigate('/orderhistory');
         }
     },[navi])
 
     useEffect(() => {
-        cartRet(dispatch, cart, login);
-        console.log(updCart);
-        console.log(navi);
-    }, [updCart, location]); 
+
+        const interval = setInterval(() => { 
+            cartRet(dispatch, cart, login);
+            console.log(navi); 
+            }, 500); 
+
+        return () => clearInterval(interval);
+    
+    }, []); 
 
     const onClickHandler = async () => {
         try {
@@ -46,7 +49,7 @@ const Checkout = (props) => {
             }
         
             const response = await fetch('http://localhost:5000/cart',requestOptions);
-            setUpdtCart(true);
+            
             
         }catch(e) {
             console.log(e);
@@ -64,7 +67,7 @@ const Checkout = (props) => {
             }
         
             const response = await fetch('http://localhost:5000/cart',requestOptions);
-            setUpdtCart(!updCart);
+            
         }catch(e) {
             console.log(e);
         }
@@ -80,8 +83,7 @@ const Checkout = (props) => {
                 <Link style={{color: 'lightblue'}} to="/productslist"><u><strong>Continue Shopping</strong></u></Link>
                 <h2>Bank details added etc etc</h2>
                 <h2>Checkout</h2>
-                <div><button onClick={() => {setNavi(true);setUpdtCart(!updCart); setUpdtCart(!updCart);
-                                        setUpdtCart(!updCart);}}>Submit Order</button></div>
+                <div><button onClick={() => {setNavi(true);}}>Submit Order</button></div>
             </div>
             <div >
             <h1><strong style={{color: 'lightblue'}}>Cart:</strong></h1>
@@ -94,9 +96,6 @@ const Checkout = (props) => {
                                     <h2 ><strong style={{color: 'lightblue'}}>{product.id}: {product.name} - ${product.price}</strong></h2>
                                     <img style={{height:'auto', width: '50%'}} src={placeHolder} alt='' />
                                     <h2 onClick={() => {
-                                        setUpdtCart(!updCart);
-                                        setUpdtCart(!updCart);
-                                        setUpdtCart(!updCart);
                                         return removeCart(product.id);
                                         }}><u><strong style={{color: 'lightblue'}}> Click here to remove from cart </strong></u></h2>
                                 </div>

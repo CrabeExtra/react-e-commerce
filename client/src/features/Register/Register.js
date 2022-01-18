@@ -57,7 +57,7 @@ const Register = (props) => {
     return (
         <div style={{justifyContent: "center", textAlign: "center"}}>
             <h1>Enter Login Details, passwords must match</h1>
-            {login.loggedIn ? <h2>Logged in: {login.email}</h2> : <h2></h2>}
+            {login.loggedIn ? <h2>Logged in: {login.email}</h2> : 
             <form onSubmit={submitHandler} method="POST" >
                 <div style={{padding:"10px"}} className="form-group">
                     <label htmlFor="Email">Email</label>
@@ -75,7 +75,7 @@ const Register = (props) => {
                 </div>
                 {password === password2 ? <button style={{margin:"20px", padding: "5px"}} type="btnSubmit" className="btn btn-primary">Submit</button> : <p>Passwords do not match...</p> }
                 
-            </form>
+            </form> }
 
             {login.loggedIn ? <p></p> : <div><Link style={{color: 'lightblue'}} to="/login"><strong>Already have an account? login here</strong></Link></div>}
             <div><Link style={{color: 'lightblue'}} to="/"><strong>Back to main</strong></Link></div>

@@ -30,13 +30,15 @@ app.use(function (req, res, next) {
 // posts for form submissions:
 
 app.post('/user', (req, res) => {
-  const user = req.body;
+  const {email} = req.body;
   
   // output to console for debugging
-  console.log(user);
-  users.push(user);
-  db.createUser(req,res);
-  res.send('user registered!');
+  result = db.createUser(req,res);
+  if(result) {
+    res.json({success:true, email:email});
+  }else {
+    res.json({success:false, email:email});
+  }
 });
 
 app.post('/item', (req, res) => {
@@ -50,6 +52,11 @@ app.post('/item', (req, res) => {
   db.createItem(newreq, newres);
 
   res.send('item added to the database');
+});
+
+app.post('/orders', async (req, res) => {
+  let orders = await db.getOrders(req, res);
+  res.json(orders);
 });
 
 app.post('/cart', async (req, res) => {
@@ -101,6 +108,8 @@ app.get('/carts', async (req, res) => {
   console.log(cartData);
   res.json(cartData.concat(items));
 });
+
+
 
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

@@ -28,7 +28,7 @@ const render = () => (
                 state={store.getState()}
                 dispatch={store.dispatch}
               />}>
-                <Route path="orderhistory" element={<OrderHistory login={store.getState().login} productsList={store.getState().productsList} dispatch={store.dispatch} />} />
+                <Route path="orderhistory" element={<OrderHistory orders={store.getState().orders} login={store.getState().login} productsList={store.getState().productsList} dispatch={store.dispatch} />} />
                 <Route path="productslist" element={<ProductsList login={store.getState().login} productsList={store.getState().productsList} dispatch={store.dispatch} />} />
                 <Route path="product/:productId" element={<Product productFlip={store.getState().productId} login={store.getState().login} productsList={store.getState().productsList} dispatch={store.dispatch} />}/>
             </Route>

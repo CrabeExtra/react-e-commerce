@@ -4,6 +4,7 @@ import { productsListReducer } from '../features/ProductsList/productsListSlice'
 import { productReducer } from '../features/Product/productSlice';
 import { loginReducer } from '../features/Login/loginSlice';
 import { cartReducer } from '../features/Cart/cartSlice';
+import { ordersReducer } from '../features/OrderHistory/orderHistorySlice';
 
 // import other features
 /**
@@ -14,6 +15,7 @@ const reducers = {
     login: loginReducer,
     productId: productReducer,
     cart: cartReducer,
+    orders: ordersReducer,
     session: sessionReducer
     //other reducers
 }
